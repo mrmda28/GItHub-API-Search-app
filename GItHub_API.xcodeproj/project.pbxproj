@@ -9,21 +9,23 @@
 /* Begin PBXBuildFile section */
 		E0A8DA5F26E7A68D00C0CE6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A8DA5E26E7A68D00C0CE6F /* AppDelegate.swift */; };
 		E0A8DA6126E7A68D00C0CE6F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A8DA6026E7A68D00C0CE6F /* SceneDelegate.swift */; };
-		E0A8DA6326E7A68D00C0CE6F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A8DA6226E7A68D00C0CE6F /* ViewController.swift */; };
 		E0A8DA6626E7A68D00C0CE6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0A8DA6426E7A68D00C0CE6F /* Main.storyboard */; };
 		E0A8DA6826E7A68E00C0CE6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0A8DA6726E7A68E00C0CE6F /* Assets.xcassets */; };
 		E0A8DA6B26E7A68E00C0CE6F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0A8DA6926E7A68E00C0CE6F /* LaunchScreen.storyboard */; };
+		E0A8DA7326E7AADB00C0CE6F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A8DA7226E7AADB00C0CE6F /* UserModel.swift */; };
+		E0A8DA7526E7AD4700C0CE6F /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A8DA7426E7AD4700C0CE6F /* TableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E0A8DA5B26E7A68D00C0CE6F /* GItHub_API.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GItHub_API.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0A8DA5B26E7A68D00C0CE6F /* GItHub Search.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GItHub Search.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0A8DA5E26E7A68D00C0CE6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0A8DA6026E7A68D00C0CE6F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E0A8DA6226E7A68D00C0CE6F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E0A8DA6526E7A68D00C0CE6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E0A8DA6726E7A68E00C0CE6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E0A8DA6A26E7A68E00C0CE6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E0A8DA6C26E7A68E00C0CE6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E0A8DA7226E7AADB00C0CE6F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		E0A8DA7426E7AD4700C0CE6F /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +50,7 @@
 		E0A8DA5C26E7A68D00C0CE6F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E0A8DA5B26E7A68D00C0CE6F /* GItHub_API.app */,
+				E0A8DA5B26E7A68D00C0CE6F /* GItHub Search.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -56,12 +58,13 @@
 		E0A8DA5D26E7A68D00C0CE6F /* GItHub_API */ = {
 			isa = PBXGroup;
 			children = (
-				E0A8DA5E26E7A68D00C0CE6F /* AppDelegate.swift */,
-				E0A8DA6026E7A68D00C0CE6F /* SceneDelegate.swift */,
-				E0A8DA6226E7A68D00C0CE6F /* ViewController.swift */,
+				E0A8DA7426E7AD4700C0CE6F /* TableViewController.swift */,
+				E0A8DA7226E7AADB00C0CE6F /* UserModel.swift */,
 				E0A8DA6426E7A68D00C0CE6F /* Main.storyboard */,
 				E0A8DA6726E7A68E00C0CE6F /* Assets.xcassets */,
 				E0A8DA6926E7A68E00C0CE6F /* LaunchScreen.storyboard */,
+				E0A8DA5E26E7A68D00C0CE6F /* AppDelegate.swift */,
+				E0A8DA6026E7A68D00C0CE6F /* SceneDelegate.swift */,
 				E0A8DA6C26E7A68E00C0CE6F /* Info.plist */,
 			);
 			path = GItHub_API;
@@ -84,7 +87,7 @@
 			);
 			name = GItHub_API;
 			productName = GItHub_API;
-			productReference = E0A8DA5B26E7A68D00C0CE6F /* GItHub_API.app */;
+			productReference = E0A8DA5B26E7A68D00C0CE6F /* GItHub Search.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -138,8 +141,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0A8DA6326E7A68D00C0CE6F /* ViewController.swift in Sources */,
 				E0A8DA5F26E7A68D00C0CE6F /* AppDelegate.swift in Sources */,
+				E0A8DA7326E7AADB00C0CE6F /* UserModel.swift in Sources */,
+				E0A8DA7526E7AD4700C0CE6F /* TableViewController.swift in Sources */,
 				E0A8DA6126E7A68D00C0CE6F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,7 +296,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "mrmda28.GItHub-API";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "GItHub Search";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -310,7 +314,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "mrmda28.GItHub-API";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "GItHub Search";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
