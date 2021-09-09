@@ -12,11 +12,13 @@ struct User: Codable {
 //    let id: Int
     let username: String
 //    let url: URL
+    let image: String
     
     enum CodingKeys: String, CodingKey {
 //        case id
         case username = "login"
 //        case url = "html_url"
+        case image = "avatar_url"
     }
 }
 
