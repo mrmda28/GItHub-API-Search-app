@@ -1,14 +1,16 @@
 //
-//  TableViewController.swift
+//  SearchCollectionViewController.swift
 //  GItHub_API
 //
-//  Created by Dmitriy Maslennikov on 07/09/2021.
+//  Created by Dmitriy Maslennikov on 14/09/2021.
 //  Copyright © 2021 mrmda28. All rights reserved.
 //
 
 import UIKit
 
-class TableViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate {
+private let reuseIdentifier = "UserCell"
+
+class SearchCollectionViewController: UICollectionViewController, UISearchResultsUpdating, UISearchBarDelegate {
     
     private func parseUsers(data: Data) {
         let decoder = JSONDecoder()
@@ -20,18 +22,13 @@ class TableViewController: UITableViewController, UISearchResultsUpdating, UISea
             return
         }
             
-//        let countOfUsers = users.count
-            
         for user in users.users {
             self.users[user.username] = user.image
-//            listOfUsers.append(user.username)
         }
             
-//        self.count = countOfUsers
-//        self.users = listOfUsers
-            
         DispatchQueue.main.async {
-            self.tableView.reloadData()
+            self.collectionView.reloadData()
+//            self.tableView.reloadData()
         }
     }
         
@@ -50,21 +47,22 @@ class TableViewController: UITableViewController, UISearchResultsUpdating, UISea
                 }
                 return
             }
-                
             self.parseUsers(data: data)
         }
         dataTask.resume()
     }
 
-//    var count = 0
+    // MARK: - Variables
+    
     private var users: [String:String] = [:]
     private let searchController = UISearchController()
-//    private var searchTimer: Timer?
-    
+
     // MARK: - viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = "Search"
         
         self.searchController.searchResultsUpdater = self
         self.searchController.searchBar.delegate = self
@@ -79,7 +77,8 @@ class TableViewController: UITableViewController, UISearchResultsUpdating, UISea
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchController.searchBar.text else { return }
         self.requestUsers(username: text)
-        self.tableView.reloadData()
+        self.collectionView.reloadData()
+//        self.tableView.reloadData()
     }
     
     func searchBarResultsListButtonClicked(_ searchBar: UISearchBar) {
@@ -92,38 +91,40 @@ class TableViewController: UITableViewController, UISearchResultsUpdating, UISea
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.users.removeAll()
-        self.tableView.reloadData()
+        self.collectionView.reloadData()
+//        self.tableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.users.removeAll()
-        self.tableView.reloadData()
+        self.collectionView.reloadData()
+//        self.tableView.reloadData()
     }
-    
-//    func updateSearchResults(for searchController: UISearchController) {
-//        guard let text = searchController.searchBar.text else { return }
-//        self.searchTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (timer) in
-//            self.requestUsers(username: text)
-//        })
-//    }
 
-    // MARK: - Table view data source
+    // MARK: - UICollectionViewDataSource
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.users.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath)
-
-//        cell.imageView?.image = UIImage()
-        cell.textLabel?.text = Array(self.users.keys)[indexPath.row]
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! SearchUserCollectionViewCell
+    
+        cell.userImage.image = UIImage(named: "default")
+        cell.usernameLabel.text = Array(self.users.keys)[indexPath.row]
+        
+        cell.userImage.backgroundColor = .white
+        cell.userImage.layer.cornerRadius = 20
+        
+        cell.layer.borderColor = UIColor.secondarySystemFill.cgColor
+        cell.layer.borderWidth = 3
+        
+        cell.layer.cornerRadius = 20
+    
         return cell
     }
     
-        // MARK: - Navigation
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let user = (username: Array(self.users.keys)[indexPath.row],
                      imagePath: Array(self.users.values)[indexPath.row])
         
@@ -131,13 +132,14 @@ class TableViewController: UITableViewController, UISearchResultsUpdating, UISea
             viewController.username = user.username
             viewController.imagePath = user.imagePath
 
-            navigationController?.pushViewController(viewController, animated: true)
+            self.navigationController?.pushViewController(viewController, animated: true)
         }
     }
-        
+    
     // MARK: - Hide keyboard
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+
 }
