@@ -12,6 +12,7 @@ private let reuseIdentifier = "UserCell"
 
 class SearchCollectionViewController: UICollectionViewController, UISearchResultsUpdating, UISearchBarDelegate {
     
+    // MARK: - Get Users
     private func parseUsers(data: Data) {
         let decoder = JSONDecoder()
             
@@ -28,7 +29,6 @@ class SearchCollectionViewController: UICollectionViewController, UISearchResult
             
         DispatchQueue.main.async {
             self.collectionView.reloadData()
-//            self.tableView.reloadData()
         }
     }
         
@@ -78,7 +78,6 @@ class SearchCollectionViewController: UICollectionViewController, UISearchResult
         guard let text = searchController.searchBar.text else { return }
         self.requestUsers(username: text)
         self.collectionView.reloadData()
-//        self.tableView.reloadData()
     }
     
     func searchBarResultsListButtonClicked(_ searchBar: UISearchBar) {
@@ -92,16 +91,14 @@ class SearchCollectionViewController: UICollectionViewController, UISearchResult
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.users.removeAll()
         self.collectionView.reloadData()
-//        self.tableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.users.removeAll()
         self.collectionView.reloadData()
-//        self.tableView.reloadData()
     }
 
-    // MARK: - UICollectionViewDataSource
+    // MARK: - CollectionView
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.users.count
@@ -141,5 +138,4 @@ class SearchCollectionViewController: UICollectionViewController, UISearchResult
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-
 }

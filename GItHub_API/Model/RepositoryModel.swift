@@ -12,7 +12,7 @@ struct Repository: Codable {
     let name: String
     let createdAt: String
     let updatedAt: String
-    let language: String
+    let language: String?
     
     enum CodingKeys: String, CodingKey {
         case name = "name"
