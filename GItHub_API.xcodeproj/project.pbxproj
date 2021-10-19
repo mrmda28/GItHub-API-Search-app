@@ -54,6 +54,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		E08B2BBE2700D4BF00DDE31A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E086528B26F0D5B9004D5D75 /* SearchUserCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		E0A8DA5226E7A68D00C0CE6F = {
 			isa = PBXGroup;
 			children = (
@@ -73,9 +81,9 @@
 		E0A8DA5D26E7A68D00C0CE6F /* GItHub_API */ = {
 			isa = PBXGroup;
 			children = (
+				E08B2BBE2700D4BF00DDE31A /* View */,
 				E086528F26F0E01D004D5D75 /* Model */,
 				E086528926F0D56C004D5D75 /* SearchCollectionViewController.swift */,
-				E086528B26F0D5B9004D5D75 /* SearchUserCollectionViewCell.swift */,
 				E0A8DA7626E7B31900C0CE6F /* UserDetailViewController.swift */,
 				E0A8DA6426E7A68D00C0CE6F /* Main.storyboard */,
 				E0A8DA6726E7A68E00C0CE6F /* Assets.xcassets */,
@@ -308,6 +316,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B9LDY7DJT3;
 				INFOPLIST_FILE = GItHub_API/Info.plist;
@@ -317,6 +326,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "mrmda28.GItHub-API";
 				PRODUCT_NAME = "GItHub Search";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -326,6 +336,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B9LDY7DJT3;
 				INFOPLIST_FILE = GItHub_API/Info.plist;
@@ -335,6 +346,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "mrmda28.GItHub-API";
 				PRODUCT_NAME = "GItHub Search";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

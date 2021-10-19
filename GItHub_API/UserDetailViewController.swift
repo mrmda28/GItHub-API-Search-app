@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class UserDetailViewController: UIViewController {
     
     // MARK: - Get Repositories
     
@@ -114,9 +114,11 @@ class UserDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.requestRepositories(username: username)
     }
-    
-    // MARK: - TableView
-    
+}
+
+// MARK: - TableView
+
+extension UserDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.repositories.count
     }

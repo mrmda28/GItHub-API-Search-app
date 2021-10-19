@@ -10,9 +10,10 @@ import UIKit
 
 private let reuseIdentifier = "UserCell"
 
-class SearchCollectionViewController: UICollectionViewController, UISearchResultsUpdating, UISearchBarDelegate {
+class SearchCollectionViewController: UICollectionViewController {
     
     // MARK: - Get Users
+     
     private func parseUsers(data: Data) {
         let decoder = JSONDecoder()
             
@@ -64,38 +65,17 @@ class SearchCollectionViewController: UICollectionViewController, UISearchResult
         
         self.title = "Search"
         
+        setupSearchBar()
+    }
+    
+    // MARK: - Setup SearchBar
+    
+    private func setupSearchBar() {
         self.searchController.searchResultsUpdater = self
         self.searchController.searchBar.delegate = self
-        
         self.searchController.obscuresBackgroundDuringPresentation = false
         
         self.navigationItem.searchController = searchController
-    }
-    
-    // MARK: - Search
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let text = searchController.searchBar.text else { return }
-        self.requestUsers(username: text)
-        self.collectionView.reloadData()
-    }
-    
-    func searchBarResultsListButtonClicked(_ searchBar: UISearchBar) {
-        
-    }
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.users.removeAll()
-        self.collectionView.reloadData()
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.users.removeAll()
-        self.collectionView.reloadData()
     }
 
     // MARK: - CollectionView
@@ -137,5 +117,33 @@ class SearchCollectionViewController: UICollectionViewController, UISearchResult
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+}
+
+// MARK: - Search
+
+extension SearchCollectionViewController: UISearchResultsUpdating, UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchController.searchBar.text else { return }
+        self.requestUsers(username: text)
+        self.collectionView.reloadData()
+    }
+    
+    func searchBarResultsListButtonClicked(_ searchBar: UISearchBar) {
+        
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.users.removeAll()
+        self.collectionView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.users.removeAll()
+        self.collectionView.reloadData()
     }
 }
