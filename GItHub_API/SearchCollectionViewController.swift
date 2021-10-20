@@ -10,7 +10,7 @@ import UIKit
 
 private let reuseIdentifier = "UserCell"
 
-class SearchCollectionViewController: UICollectionViewController {
+class SearchCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     // MARK: - Get Users
      
@@ -89,7 +89,7 @@ class SearchCollectionViewController: UICollectionViewController {
     
         cell.userImage.image = UIImage(named: "default")
         cell.usernameLabel.text = Array(self.users.keys)[indexPath.row]
-        
+
         cell.userImage.backgroundColor = .white
         cell.userImage.layer.cornerRadius = 20
         
@@ -111,6 +111,23 @@ class SearchCollectionViewController: UICollectionViewController {
 
             self.navigationController?.pushViewController(viewController, animated: true)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let collectionWidth = self.collectionView.bounds.width
+        return CGSize(width: (collectionWidth-50)/2, height: 186.0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        15
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     
     // MARK: - Hide keyboard
