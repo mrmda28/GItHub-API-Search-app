@@ -10,48 +10,6 @@ import UIKit
 
 class UserDetailViewController: UIViewController {
     
-    // MARK: - Get Repositories
-    
-    private func parseRepositories(data: Data) {
-        let decoder = JSONDecoder()
-                
-        guard
-            let repositories = try! decoder.decode([Repository]?.self, from: data)
-        else {
-            print("Parse Error")
-            return
-        }
-        
-        for repository in repositories {
-            self.repositories.append(repository.name)
-        }
-
-        DispatchQueue.main.async {
-            self.repositoriesTableView.reloadData()
-        }
-    }
-    
-    private func requestRepositories(username: String) {
-        let url = URL(string:
-            "https://api.github.com/users/\(username)/repos?sort=created")!
-            
-        let dataTask = URLSession.shared.dataTask(with: url) { data, response, error in
-            guard
-                error == nil,
-                (response as? HTTPURLResponse)?.statusCode == 200,
-                let data = data
-            else {
-                switch (response as? HTTPURLResponse)!.statusCode {
-                case 422: print("Request Error: User not found")
-                default: print("Request Error: ", (response as? HTTPURLResponse)!.statusCode)
-                }
-                return
-            }
-            self.parseRepositories(data: data)
-        }
-        dataTask.resume()
-    }
-    
     // MARK: - Get Icon
     
     private func requestIcon(path: String) {
@@ -69,13 +27,16 @@ class UserDetailViewController: UIViewController {
                                 
                         print("Error getting the image")
                     }
+                    
                     return
                 }
+                
                 DispatchQueue.main.async {
                     let image = UIImage(data: data)
                     self.userImage.image = image
                 }
             }
+        
             dataTask.resume()
         }
     
@@ -112,7 +73,20 @@ class UserDetailViewController: UIViewController {
         self.repositoriesTableView.layer.borderWidth = 3
         self.repositoriesTableView.layer.cornerRadius = 20
         
-        self.requestRepositories(username: username)
+        Service.shared.getRepositories(username: self.username) { (results, error) in
+            if let error = error {
+                print("Search Error: \(error)")
+                return
+            }
+            
+            for repository in results {
+                self.repositories.append(repository.name)
+            }
+            
+            DispatchQueue.main.async {
+                self.repositoriesTableView.reloadData()
+            }
+        }
     }
 }
 

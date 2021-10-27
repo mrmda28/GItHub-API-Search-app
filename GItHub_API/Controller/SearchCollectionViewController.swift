@@ -12,49 +12,6 @@ private let reuseIdentifier = "UserCell"
 
 class SearchCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    // MARK: - Get Users
-     
-    private func parseUsers(data: Data) {
-        let decoder = JSONDecoder()
-            
-        guard
-            let users = try! decoder.decode(Users?.self, from: data)
-        else {
-            print("Parse Error")
-            return
-        }
-            
-        for user in users.users {
-            self.users[user.username] = user.image
-        }
-            
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
-    }
-        
-    private func requestUsers(username: String) {
-        let url = URL(string: "https://api.github.com/search/users?q=\(username)")!
-            
-        let dataTask = URLSession.shared.dataTask(with: url) { data, response, error in
-            guard
-                error == nil,
-                (response as? HTTPURLResponse)?.statusCode == 200,
-                let data = data
-            else {
-                switch (response as? HTTPURLResponse)!.statusCode {
-                case 422: print("Request Error: User not found")
-                default: print("Request Error: ", (response as? HTTPURLResponse)!.statusCode)
-                }
-                return
-            }
-            self.parseUsers(data: data)
-        }
-        dataTask.resume()
-    }
-
-    // MARK: - Variables
-    
     private var users: [String:String] = [:]
     private let searchController = UISearchController()
 
@@ -142,8 +99,21 @@ class SearchCollectionViewController: UICollectionViewController, UICollectionVi
 extension SearchCollectionViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchController.searchBar.text else { return }
-        self.requestUsers(username: text)
-        self.collectionView.reloadData()
+        
+        Service.shared.getUsers(username: text) { (results, error) in
+            if let error = error {
+                print("Search Error: \(error)")
+                return
+            }
+            
+            for user in results {
+                self.users[user.username] = user.image
+            }
+            
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
     }
     
     func searchBarResultsListButtonClicked(_ searchBar: UISearchBar) {
