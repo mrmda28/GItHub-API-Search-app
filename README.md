@@ -13,4 +13,4 @@ https://api.github.com/users/{username}/repos?sort=created
 https://api.github.com/search/users?q={username}
 ```
 
-![](https://user-images.githubusercontent.com/45512200/134576051-b5a65eac-9732-48ac-8e3f-07088466ecf1.gif)
+![](https://user-images.githubusercontent.com/45512200/140627242-8997e9cf-d4cc-48e9-95b7-324b45e46582.gif)
