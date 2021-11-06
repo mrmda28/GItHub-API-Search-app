@@ -1,5 +1,5 @@
 //
-//  Service.swift
+//  NetworkManager.swift
 //  GItHub_API
 //
 //  Created by Dmitriy Maslennikov on 27/10/2021.
@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import UIKit
 
-class Service {
+class NetworkManager {
     
-    static let shared = Service()
+    static let shared = NetworkManager()
     
     // MARK: - Users
     
@@ -18,7 +19,7 @@ class Service {
         
         // Request Users
         
-        let url = URL(string: "https://api.github.com/search/users?q=\(username)")!
+        guard let url = URL(string: "https://api.github.com/search/users?q=\(username)") else { return }
         
         let dataTask = URLSession.shared.dataTask(with: url) { data, response, error in
             guard
@@ -28,7 +29,7 @@ class Service {
             else {
                 switch (response as? HTTPURLResponse)!.statusCode {
                 case 422: print("Request Error: User not found")
-                default: print("Request Error: ", (response as? HTTPURLResponse)!.statusCode)
+                default: print("Request Error: \(username)", (response as? HTTPURLResponse)!.statusCode)
                 }
                 
                 completion([], nil)
@@ -45,7 +46,9 @@ class Service {
                 return
             }
             
-            completion(users.users, nil)
+            DispatchQueue.main.async {
+                completion(users.users, nil)
+            }
         }
         
         dataTask.resume()
@@ -58,7 +61,7 @@ class Service {
         
         // Request Repositories
         
-        let url = URL(string: "https://api.github.com/users/\(username)/repos?sort=created")!
+        guard let url = URL(string: "https://api.github.com/users/\(username)/repos?sort=created") else { return }
         
         let dataTask = URLSession.shared.dataTask(with: url) { data, response, error in
             guard
@@ -67,8 +70,8 @@ class Service {
                 let data = data
             else {
                 switch (response as? HTTPURLResponse)!.statusCode {
-                case 422: print("Request Error: User not found")
-                default: print("Request Error: ", (response as? HTTPURLResponse)!.statusCode)
+                case 422: print("Request Error: Repositories not found")
+                default: print("Request Error: \(username)", (response as? HTTPURLResponse)!.statusCode)
                 }
                 
                 completion([], nil)
@@ -85,7 +88,35 @@ class Service {
                 return
             }
             
-            completion(repositories, nil)
+            DispatchQueue.main.async {
+                completion(repositories, nil)
+            }
+        }
+        
+        dataTask.resume()
+    }
+    
+    // MARK: - User Image
+    
+    func getUserImage(url: String, completion: @escaping (UIImage) -> ()) {
+        
+        guard let imageURL = URL(string: url) else { return }
+        
+        let dataTask = URLSession.shared.dataTask(with: imageURL) { data, response, error in
+            guard
+                error == nil,
+                (response as? HTTPURLResponse)?.statusCode == 200,
+                let data = data
+            else {
+                print("Image Request Error: \((response as? HTTPURLResponse)!.statusCode))")
+                return
+            }
+            
+            if let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    completion(image)
+                }
+            }
         }
         
         dataTask.resume()

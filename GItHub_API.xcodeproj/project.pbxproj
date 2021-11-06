@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E01B3B592729E88700A2A9DD /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01B3B582729E88700A2A9DD /* Service.swift */; };
+		E01B3B592729E88700A2A9DD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01B3B582729E88700A2A9DD /* NetworkManager.swift */; };
 		E05559BF26EA82B800E2A870 /* RepositoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05559BE26EA82B800E2A870 /* RepositoryModel.swift */; };
 		E086528A26F0D56C004D5D75 /* SearchCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E086528926F0D56C004D5D75 /* SearchCollectionViewController.swift */; };
 		E086528C26F0D5B9004D5D75 /* SearchUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E086528B26F0D5B9004D5D75 /* SearchUserCollectionViewCell.swift */; };
@@ -21,7 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E01B3B582729E88700A2A9DD /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		E01B3B582729E88700A2A9DD /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E05559BE26EA82B800E2A870 /* RepositoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryModel.swift; sourceTree = "<group>"; };
 		E086528926F0D56C004D5D75 /* SearchCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewController.swift; sourceTree = "<group>"; };
 		E086528B26F0D5B9004D5D75 /* SearchUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -47,12 +47,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E01B3B572729E86400A2A9DD /* Service */ = {
+		E01B3B572729E86400A2A9DD /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				E01B3B582729E88700A2A9DD /* Service.swift */,
+				E01B3B582729E88700A2A9DD /* NetworkManager.swift */,
 			);
-			path = Service;
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		E02FE2CF2729C33500868541 /* Controller */ = {
@@ -103,7 +103,7 @@
 				E086528F26F0E01D004D5D75 /* Model */,
 				E08B2BBE2700D4BF00DDE31A /* View */,
 				E02FE2CF2729C33500868541 /* Controller */,
-				E01B3B572729E86400A2A9DD /* Service */,
+				E01B3B572729E86400A2A9DD /* Networking */,
 				E0A8DA6426E7A68D00C0CE6F /* Main.storyboard */,
 				E0A8DA6726E7A68E00C0CE6F /* Assets.xcassets */,
 				E0A8DA6926E7A68E00C0CE6F /* LaunchScreen.storyboard */,
@@ -186,7 +186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E086528A26F0D56C004D5D75 /* SearchCollectionViewController.swift in Sources */,
-				E01B3B592729E88700A2A9DD /* Service.swift in Sources */,
+				E01B3B592729E88700A2A9DD /* NetworkManager.swift in Sources */,
 				E0A8DA5F26E7A68D00C0CE6F /* AppDelegate.swift in Sources */,
 				E0A8DA7726E7B31900C0CE6F /* UserDetailViewController.swift in Sources */,
 				E0A8DA7326E7AADB00C0CE6F /* UserModel.swift in Sources */,

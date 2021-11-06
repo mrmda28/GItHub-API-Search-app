@@ -36,15 +36,16 @@ class SearchCollectionViewController: UICollectionViewController, UICollectionVi
     }
 
     // MARK: - CollectionView
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.users.count
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! SearchUserCollectionViewCell
     
-        cell.userImage.image = UIImage(named: "default")
+    private func configureCell(cell: SearchUserCollectionViewCell, for indexPath: IndexPath) {
+        cell.userImage.image = nil
+        
+        NetworkManager.shared.getUserImage(url: Array(self.users.values)[indexPath.row]) { (image) in
+            DispatchQueue.main.async{
+                cell.userImage.image = image
+            }
+        }
+        
         cell.usernameLabel.text = Array(self.users.keys)[indexPath.row]
 
         cell.userImage.backgroundColor = .white
@@ -54,6 +55,16 @@ class SearchCollectionViewController: UICollectionViewController, UICollectionVi
         cell.layer.borderWidth = 3
         
         cell.layer.cornerRadius = 20
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.users.count
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! SearchUserCollectionViewCell
+        
+        configureCell(cell: cell, for: indexPath)
     
         return cell
     }
@@ -100,7 +111,7 @@ extension SearchCollectionViewController: UISearchResultsUpdating, UISearchBarDe
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchController.searchBar.text else { return }
         
-        Service.shared.getUsers(username: text) { (results, error) in
+        NetworkManager.shared.getUsers(username: text) { (results, error) in
             if let error = error {
                 print("Search Error: \(error)")
                 return

@@ -10,38 +10,6 @@ import UIKit
 
 class UserDetailViewController: UIViewController {
     
-    // MARK: - Get Icon
-    
-    private func requestIcon(path: String) {
-            let url = URL(string: path)!
-            
-            let dataTask = URLSession.shared.dataTask(with: url) { data, response, error in
-                guard
-                    error == nil,
-                    (response as? HTTPURLResponse)?.statusCode == 200,
-                    let data = data
-                else {
-                    DispatchQueue.main.async {
-                        let image = UIImage(named: "default")
-                        self.userImage.image = image
-                                
-                        print("Error getting the image")
-                    }
-                    
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    let image = UIImage(data: data)
-                    self.userImage.image = image
-                }
-            }
-        
-            dataTask.resume()
-        }
-    
-    // MARK: - Variables
-    
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var repositoriesLabel: UILabel!
     @IBOutlet weak var repositoriesTableView: UITableView!
@@ -58,22 +26,39 @@ class UserDetailViewController: UIViewController {
         
         self.navigationItem.title = self.username
         
-        self.userImage.image = UIImage()
+        setupImage()
+        setupTableView()
+    }
+    
+    // MARK: - Setup Image
+    
+    private func setupImage() {
+        self.userImage.image = nil
+        
+        NetworkManager.shared.getUserImage(url: self.imagePath) { (image) in
+            DispatchQueue.main.async {
+                self.userImage.image = image
+            }
+        }
+        
         self.userImage.backgroundColor = .white
         self.userImage.layer.cornerRadius = 20
         
         self.userImage.layer.borderColor = UIColor.secondarySystemFill.cgColor
         self.userImage.layer.borderWidth = 2
-        
-        self.requestIcon(path: imagePath)
-        
+    }
+    
+    // MARK: - Setup TableView
+    
+    private func setupTableView() {
         self.repositoriesTableView.dataSource = self
         self.repositoriesTableView.delegate = self
+        
         self.repositoriesTableView.layer.borderColor = UIColor.secondarySystemFill.cgColor
         self.repositoriesTableView.layer.borderWidth = 3
         self.repositoriesTableView.layer.cornerRadius = 20
         
-        Service.shared.getRepositories(username: self.username) { (results, error) in
+        NetworkManager.shared.getRepositories(username: self.username) { (results, error) in
             if let error = error {
                 print("Search Error: \(error)")
                 return
